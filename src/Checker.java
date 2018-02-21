@@ -37,17 +37,17 @@ public class Checker {
         }
         bbox = new Rectangle(bounds[0], bounds[1], bounds[2], bounds[3]);
       }
-      File file = new File("res/SanFran.csv");
-      BufferedReader reader = new BufferedReader(new FileReader(file));
+      final File file = new File("res/SanFran.csv");
+      final BufferedReader reader = new BufferedReader(new FileReader(file));
       String read;
       try {
         while ((read = reader.readLine()) != null) {
           Matcher matcher = Pattern.compile("-?\\d+\\.\\d+").matcher(read);
-          double[] c = new double[6];
+          final double[] c = new double[6];
           for (int i = 0; i < 6; i++) {
             if (matcher.find()) {
               final String group = matcher.group();
-              double coordinate = Double.parseDouble(group);
+              final double coordinate = Double.parseDouble(group);
               c[i] = coordinate;
             } else {
               throw new IllegalArgumentException();
@@ -55,7 +55,7 @@ public class Checker {
           }
 
           try {
-            Rectangle rectangle = new Rectangle(c[0], c[2], c[1], c[3], c[5]);
+            final Rectangle rectangle = new Rectangle(c[0], c[2], c[1], c[3], c[5]);
             if (bbox != null && !bbox.intersect(rectangle)) {
               continue;
             }
@@ -94,7 +94,7 @@ public class Checker {
     }
 
     //sort
-    Comparator<Double> sort = (x1, x2) -> {
+    final Comparator<Double> sort = (x1, x2) -> {
       if (x1 > x2) {
         return 1;
       }
@@ -113,7 +113,7 @@ public class Checker {
     for (int j = ys.size() - 2; j >= 0; j--) {
       for (int i = 0; i < xs.size() - 1; i++) {
         contains[i][j] = false;
-        Rectangle r = new Rectangle(xs.get(i), ys.get(j), xs.get(i + 1), ys.get(j + 1));
+        final Rectangle r = new Rectangle(xs.get(i), ys.get(j), xs.get(i + 1), ys.get(j + 1));
         char tile = ' ';
         for (final Rectangle rectangle : rectangles) {
           if (rectangle.contains(r)) {
@@ -145,10 +145,10 @@ public class Checker {
   private static void importRectangle(final Rectangle rectangle) {
     rectangles.add(rectangle);
 
-    double x1 = rectangle.getX1();
-    double x2 = rectangle.getX2();
-    double y1 = rectangle.getY2();
-    double y2 = rectangle.getY2();
+    final double x1 = rectangle.getX1();
+    final double x2 = rectangle.getX2();
+    final double y1 = rectangle.getY2();
+    final double y2 = rectangle.getY2();
 
     if (!xs.contains(x1)) {
       xs.add(x1);
